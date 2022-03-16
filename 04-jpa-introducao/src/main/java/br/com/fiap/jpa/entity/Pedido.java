@@ -19,18 +19,18 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "TB_PEDIDO")
-					//nome no java				nome no banco					iteraÁ„o (1 em 1)
+						//nome no java, nome no banco, incremento
 @SequenceGenerator(name = "pedido", sequenceName = "SQ_TB_PEDIDO", allocationSize = 1)
 public class Pedido {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido")
 	@Column(name="cd_pedido")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido")
 	private Integer codigo;
 	
-	//nullable -> pode ser nulo?, updatable - pode ser atualizado?
-	@Column(name="dt_pedido", nullable = false, updatable = false)
+	//nullable -> pode ser nulo? , updatable -> pode ser atualizado?
 	@Temporal(TemporalType.TIMESTAMP) //Define o campo de data e hora no banco
+	@Column(name="dt_pedido", nullable = false, updatable = false) 
 	private Calendar data;
 	
 	@Column(name="dt_pagamento")
@@ -41,11 +41,11 @@ public class Pedido {
 	
 	@Column(name="ds_pedido", length = 100)
 	private String descricao;
-	
+
 	@Column(name="vl_pedido", nullable = false)
 	private Double valor;
 	
-	//Atributo que n„o ser· uma coluna no banco
+	//Atributo que n√£o ser√° uma coluna no banco
 	@Transient
 	private Integer diasRealizado;
 	
@@ -53,13 +53,13 @@ public class Pedido {
 	@Column(name="fl_nota_fiscal")
 	private byte[] notaFiscal;
 	
-	@Enumerated(EnumType.STRING) //gravar o texto da constante
+	@Enumerated(EnumType.STRING) //grava o texto da constante
 	@Column(name="ds_status", nullable = false, length = 30)
 	private StatusPedido status;
-
-	//Construtores com todos os atributos e o padr„o
+	
+	//Construtores com todos atributos e o padr√£o
 	public Pedido() {}
-
+	
 	public Pedido(Integer codigo, Calendar data, LocalDateTime dataPagamento, String nomeCliente, String descricao,
 			Double valor, Integer diasRealizado, byte[] notaFiscal, StatusPedido status) {
 		this.codigo = codigo;
@@ -145,5 +145,5 @@ public class Pedido {
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
-	
+
 }
