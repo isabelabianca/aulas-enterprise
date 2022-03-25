@@ -43,6 +43,19 @@ public class Musica {
 	
 	@Column(name="ds_tamanho")
 	private Integer tamanho;
+	
+	public Musica () {};
+
+	public Musica(String nome, GeneroMusica genero, Calendar dataLancamento, String duracao,
+			String nomeArtista, Integer tamanho) {
+		super();
+		this.nome = nome;
+		this.genero = genero;
+		this.dataLancamento = dataLancamento;
+		this.duracao = duracao;
+		this.nomeArtista = nomeArtista;
+		this.tamanho = tamanho;
+	}
 
 	public Integer getCodigo() {
 		return codigo;
