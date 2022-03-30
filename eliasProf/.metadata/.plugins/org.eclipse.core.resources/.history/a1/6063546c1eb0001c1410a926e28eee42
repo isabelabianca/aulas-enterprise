@@ -1,0 +1,11 @@
+package br.com.fiap.pagamento;
+
+import java.util.Calendar;
+
+public class CalcularParcela {
+	
+	public Calendar calcularData(Calendar data, int qtMeses) {
+		return data;
+	}
+	
+}

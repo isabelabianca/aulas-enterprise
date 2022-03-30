@@ -1,0 +1,58 @@
+package br.com.fiap.pagamento;
+
+import java.util.Calendar;
+
+/**/
+public class Pagamento {
+	
+	private int numero;
+	private Calendar data;
+	private double valorContrato;
+	private int parcelas;
+	
+	public Pagamento(int numeroContrato, Calendar dataContrato, double valorContrato, int qtMeses) {
+		super();
+		this.numero = numeroContrato;
+		this.data = dataContrato;
+		this.valorContrato = valorContrato;
+		this.parcelas = qtMeses;
+	}
+
+	public Pagamento() {
+	}
+
+	public int getNumeroContrato() {
+		return numero;
+	}
+
+	public void setNumeroContrato(int numeroContrato) {
+		this.numero = numeroContrato;
+	}
+
+	public Calendar getDataContrato() {
+		return data;
+	}
+
+	public void setDataContrato(Calendar dataContrato) {
+		this.data = dataContrato;
+	}
+
+	public double getValorContrato() {
+		return valorContrato;
+	}
+
+	public void setValorContrato(double valorContrato) {
+		this.valorContrato = valorContrato;
+	}
+
+	public int getQtMeses() {
+		return parcelas;
+	}
+
+	public void setQtMeses(int qtMeses) {
+		this.parcelas = qtMeses;
+	}
+	
+	
+	
+}

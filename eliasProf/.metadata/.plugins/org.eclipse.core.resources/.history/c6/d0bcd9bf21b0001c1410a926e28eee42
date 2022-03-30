@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+import br.com.fiap.pagamento.Pagamento;
+
+public class Teste {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		
+		Pagamento pagamento = new Pagamento();
+		System.out.println("Enter contract data");
+		System.out.println("Number: ");
+		pagamento.setNumeroContrato(input.nextInt());
+		
+
+	}
+
+}
