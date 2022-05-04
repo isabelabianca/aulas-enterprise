@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import dominio.TipoCombustivel;
 import dominio.Veiculo;
+import dominio.VeiculoId;
 
 public class Programa {
 
@@ -18,17 +20,30 @@ public class Programa {
 		///*
 		em.getTransaction().begin(); // há a necessidade de se fazer uma transação ao inserir algo no bd
 
-		Veiculo veiculo1 = new Veiculo();
+		Veiculo veiculo = new Veiculo();
 		
-		veiculo1.setFabricante("Honda");
-		veiculo1.setModelo("Civic");
-		veiculo1.setAnoFabricacao(2020);
-		veiculo1.setAnoModelo(2020);
-		veiculo1.setValor(new BigDecimal(90500));
+/*		veiculo.setCodigo(new VeiculoId("ABC-1234", "Uberlândia"));
+		veiculo.setFabricante("Honda");
+		veiculo.setModelo("Civic");
+		veiculo.setAnoFabricacao(2020);
+		veiculo.setAnoModelo(2020);
+		veiculo.setValor(new BigDecimal(90500));
 		
 		em.persist(veiculo1);
+	*/	
+		/*
+		veiculo.setFabricante("Ford");
+		veiculo.setModelo("Focus");
+		veiculo.setAnoFabricacao(2019);
+		veiculo.setAnoModelo(2019);
+		veiculo.setValor(new BigDecimal(55200));
+		veiculo.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
+		*/
 		
-
+		
+		
+//		em.persist(veiculo);
+		
 		em.getTransaction().commit();
 		//*/
 
