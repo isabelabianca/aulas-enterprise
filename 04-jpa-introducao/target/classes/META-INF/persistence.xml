@@ -3,6 +3,7 @@
 	<persistence-unit name="CLIENTE_ORACLE" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
+			
 			<!-- Log, aparece ou não as queries executadas no banco de dados -->
 			<property name="hibernate.show_sql" value="true"/>
 			
@@ -10,9 +11,9 @@
 			<property name="hibernate.format_sql" value="true" />
 			
 			<!-- Determina o que será realizado no banco:
-			update -> atualiza as tabelas do banco de dados
-			create -> apaga as tabelas e cria novamente
-			validate -> valida as classes e tabelas
+				update -> atualiza as tabelas do banco de dados
+				create -> apagar as tabelas e criar novamente
+				validate -> valida as classes e tabelas
 			 -->
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			
@@ -23,10 +24,10 @@
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
 			
 			<!-- Usuário do banco -->
-			<property name="javax.persistence.jdbc.user" value="RM88493"/>
+			<property name="javax.persistence.jdbc.user" value="PF0392"/>
 			
 			<!-- Senha do banco -->
-			<property name="javax.persistence.jdbc.password" value="271096"/>
+			<property name="javax.persistence.jdbc.password" value="fiap"/>
 			
 			<!-- String de conexão com o banco -->
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl"/>

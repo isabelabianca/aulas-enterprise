@@ -1,6 +1,7 @@
 package aplicacao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,32 +18,32 @@ public class Programa {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("loja-veiculos");
 		EntityManager em = emf.createEntityManager();
 
-		///*
 		em.getTransaction().begin(); // há a necessidade de se fazer uma transação ao inserir algo no bd
 
 		Veiculo veiculo = new Veiculo();
-		
-/*		veiculo.setCodigo(new VeiculoId("ABC-1234", "Uberlândia"));
+		/*
+		veiculo.setCodigo(new VeiculoId("ABC-1234", "Uberlândia"));
 		veiculo.setFabricante("Honda");
 		veiculo.setModelo("Civic");
 		veiculo.setAnoFabricacao(2020);
 		veiculo.setAnoModelo(2020);
 		veiculo.setValor(new BigDecimal(90500));
 		
-		em.persist(veiculo1);
-	*/	
-		/*
+		em.persist(veiculo);
+		*/
+		
 		veiculo.setFabricante("Ford");
 		veiculo.setModelo("Focus");
 		veiculo.setAnoFabricacao(2019);
-		veiculo.setAnoModelo(2019);
+		veiculo.setAnoModelo(2020);
 		veiculo.setValor(new BigDecimal(55200));
 		veiculo.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
-		*/
+		veiculo.setDataCadastro(LocalDate.now());
 		
 		
 		
-//		em.persist(veiculo);
+		
+		em.persist(veiculo);
 		
 		em.getTransaction().commit();
 		//*/
