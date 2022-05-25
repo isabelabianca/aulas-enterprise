@@ -2,24 +2,32 @@ package dominio;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-//import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tab_veiculo")
 public class Veiculo {
-
-//	@EmbeddedId	
-//	private VeiculoId codigo;
+	
+	//@EmbeddedId	
+	//private VeiculoId codigo;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,36 +35,75 @@ public class Veiculo {
 
 	@Column(length = 60, nullable = false)
 	private String fabricante;
-
+	
 	@Column(length = 60, nullable = false)
 	private String modelo;
-
+	
 	@Column(name = "ano_fabricacao", nullable = false)
 	private Integer anoFabricacao;
-
+	
 	@Column(name = "ano_modelo", nullable = false)
 	private Integer anoModelo;
-
+	
 	@Column(precision = 10, scale = 2, nullable = true)
 	private BigDecimal valor;
-
+	
 	@Column(name = "tipo_combustivel", nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) // EnumType.ORDINAL (insere número ao invés da string)
 	private TipoCombustivel tipoCombustivel;
-
-//	@Temporal(TemporalType.DATE)
+	
+	//@Temporal(TemporalType.DATE) // Precisão de data, mas não está funcionando nesta IDE Eclipse
 	@Column(name = "data_cadastro", nullable = false)
 	private LocalDate dataCadastro;
-//	
-//	@Transient
-//	private String descricaoCompleta;
+	
+	/*
+	@Lob
+	private String especificacoes;
+	
+	@Lob
+	private byte[] foto;
+	*/
+	
+	//@Embedded
+	//private ProprietarioEmbedded proprietario;
+	
+	///*
+	// O relacionamento one-to-one aceita referências nulas, por padrão. Podemos obrigar a atribuição de proprietário durante a persistência de Veiculo, incluindo o atributo optional com valor false na anotação @OneToOne.
+	//@OneToOne
+	//@OneToOne(optional = false)
+	//@JoinColumn(name = "cod_proprietario")
+	//private Proprietario proprietario;
+	//*/
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "proprietario_codigo")
+	private Proprietario proprietario;
+	
+	
+//	@ManyToMany
+	///*
+	// parte ii - @JoinTable
+//	@JoinTable(name = "veiculo_acessorio",
+//	joinColumns = @JoinColumn(name = "veiculo_codigo"),
+//	inverseJoinColumns = @JoinColumn(name = "acessorio_codigo"))
+	//*/
+//	private Set<Acessorio> acessorios = new HashSet<>();
 
+	/*
+	As propriedades de uma entidade são automaticamente mapeadas se não especificarmos nenhuma anotação.
+	Por diversas vezes, podemos precisar criar atributos que não representam uma coluna no banco de dados. Nestes casos, devemos anotar com @Transient.
+	A propriedade será ignorada totalmente pelo mecanismo de persistência.
+	*/
+	//@Transient
+	//private String descricaoCompleta;
+	
 	public Veiculo() {
-
 	}
 
 	public Veiculo(Long codigo, String fabricante, String modelo, Integer anoFabricacao, Integer anoModelo,
-			BigDecimal valor, TipoCombustivel tipoCombustivel, LocalDate dataCadastro) {
+			BigDecimal valor, TipoCombustivel tipoCombustivel, LocalDate dataCadastro, Proprietario proprietario
+			) {
 		super();
 		this.codigo = codigo;
 		this.fabricante = fabricante;
@@ -66,6 +113,8 @@ public class Veiculo {
 		this.valor = valor;
 		this.tipoCombustivel = tipoCombustivel;
 		this.dataCadastro = dataCadastro;
+		this.proprietario = proprietario;
+//		this.acessorios = acessorios;
 	}
 
 	public Long getCodigo() {
@@ -132,12 +181,43 @@ public class Veiculo {
 		this.dataCadastro = dataCadastro;
 	}
 
-//	public VeiculoId getCodigo() {
-//		return codigo;
+	public Proprietario getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(Proprietario proprietario) {
+		this.proprietario = proprietario;
+	}
+
+//	public Set<Acessorio> getAcessorios() {
+//		return acessorios;
 //	}
 //
-//	public void setCodigo(VeiculoId codigo) {
-//		this.codigo = codigo;
+//	public void setAcessorios(Set<Acessorio> acessorios) {
+//		this.acessorios = acessorios;
 //	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(anoFabricacao, anoModelo, codigo, dataCadastro, fabricante, modelo,
+				proprietario, tipoCombustivel, valor);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Veiculo other = (Veiculo) obj;
+		return Objects.equals(anoFabricacao, other.anoFabricacao)
+				&& Objects.equals(anoModelo, other.anoModelo) && Objects.equals(codigo, other.codigo)
+				&& Objects.equals(dataCadastro, other.dataCadastro) && Objects.equals(fabricante, other.fabricante)
+				&& Objects.equals(modelo, other.modelo) && Objects.equals(proprietario, other.proprietario)
+				&& tipoCombustivel == other.tipoCombustivel && Objects.equals(valor, other.valor);
+	}
+	
+	
 }

@@ -1,14 +1,13 @@
 package aplicacao;
 
-import java.math.BigDecimal;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import dominio.Proprietario;
 import dominio.Veiculo;
 
-public class BuscandoVeiculo2 {
+public class BuscandoProprietario {
 
 	public static void main(String[] args) {
 
@@ -17,9 +16,13 @@ public class BuscandoVeiculo2 {
 
 		//em.getTransaction().begin(); // há a necessidade de se fazer uma transação ao inserir algo no bd
 
-		Veiculo veiculo = em.getReference(Veiculo.class, 1L);
-		System.out.println("Veículo de código " + veiculo.getCodigo()
-		+ " é um " + veiculo.getModelo());
+		Proprietario proprietario = em.find(Proprietario.class, 1L);
+		
+		System.out.println("Proprietário: " + proprietario.getNome());
+		
+		for (Veiculo veiculo : proprietario.getVeiculos()) {
+		System.out.println("Veículo: " + veiculo.getModelo());
+		}
 
 		//em.getTransaction().commit();
 
