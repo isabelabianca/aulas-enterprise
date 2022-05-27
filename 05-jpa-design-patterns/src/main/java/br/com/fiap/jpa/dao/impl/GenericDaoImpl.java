@@ -1,6 +1,7 @@
 package br.com.fiap.jpa.dao.impl;
 
 import javax.persistence.EntityManager;
+import java.lang.reflect.*;
 
 import br.com.fiap.jpa.dao.GenericDao;
 import br.com.fiap.jpa.exception.CommitException;
@@ -10,13 +11,15 @@ public class GenericDaoImpl<T,K> implements GenericDao<T, K>{
 	
 	private EntityManager em;
 	
+	private Class<T> clazz;
+	
 	public GenericDaoImpl(EntityManager em) {
-		super();
 		this.em = em;
+		clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	public T pesquisar(K id) throws IdNotFoundException {
-		T entidade = em.find(T.class, id);
+		T entidade = em.find(clazz, id);
 		if(entidade == null)
 			throw new IdNotFoundException();
 		return entidade;
